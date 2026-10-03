@@ -8,7 +8,7 @@
     <?php include('../src/templates/bootstrap.html') ?>
 </head>
 <?php include('../src/templates/header.html') ?>
-<?php include('../src/database.php') ?>
+
 
 
 <body data-bs-theme="dark">
@@ -16,3 +16,4 @@
 </body>
 
 </html>
+<?php

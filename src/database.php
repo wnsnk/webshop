@@ -9,11 +9,8 @@ $db_user = $env['MARIADB_USERNAME'];
 $db_password = $env['MARIADB_PASSWORD'];
 error_log($db_password);
 $db_name = 'webshopDB';
-
-$connection = mysqli_connect($db_server, $db_user, $db_password, $db_name);
-
-if ($connection) {
-    echo 'connect';
-} else {
-    echo 'nope';
+try {
+    $connection = mysqli_connect($db_server, $db_user, $db_password, $db_name);
+} catch (mysqli_sql_exception) {
+    echo 'could not connect to database!';
 }
