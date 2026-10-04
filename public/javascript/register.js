@@ -1,8 +1,6 @@
 'use strict';
-import {
-    validatePassword,
-    createWarningElement,
-} from './modules/validate_form.js';
+import FormValidator from './modules/validate_form.js';
+const formValidator = new FormValidator();
 
 // console.log('tet');
 
@@ -18,19 +16,23 @@ registerBtn.addEventListener('click', function () {
     // check if inputs are filled
     if (!eMailInput.value) {
         warningsDiv.appendChild(
-            createWarningElement('Email address can not be empty!'),
-        );
-    }
-    if (!pass0Input.value || !pass1Input.value) {
-        warningsDiv.appendChild(
-            createWarningElement('Password can not be empty!'),
+            formValidator.createWarningElement(
+                'Email address can not be empty!',
+            ),
         );
     }
 
-    const passwordValidation = validatePassword(pass0Input.value);
-    console.log(passwordValidation);
+    if (!pass0Input.value || !pass1Input.value) {
+        warningsDiv.appendChild(
+            formValidator.createWarningElement('Password can not be empty!'),
+        );
+    }
+
+    const passwordValidation = formValidator.validatePassword(pass0Input.value);
     if (!passwordValidation[0]) {
-        warningsDiv.appendChild(createWarningElement(passwordValidation[1]));
+        warningsDiv.appendChild(
+            formValidator.createWarningElement(passwordValidation[1]),
+        );
     }
 
     // CHECK IF PASSWORDS MATCH
@@ -38,7 +40,7 @@ registerBtn.addEventListener('click', function () {
 
     if (!passwordsMatch) {
         warningsDiv.appendChild(
-            createWarningElement('Passwords do not match!'),
+            formValidator.createWarningElement('Passwords do not match!'),
         );
     }
 });
