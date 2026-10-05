@@ -7,7 +7,7 @@ export async function createUser(
     City,
 ) {
     try {
-        const response = await fetch('/api/users.php', {
+        const response = await fetch('/api/create_user.php', {
             method: 'POST',
             body: JSON.stringify({
                 email: emailAddress,
