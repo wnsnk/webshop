@@ -1,0 +1,30 @@
+export async function createUser(
+    emailAddress,
+    passWord,
+    postCode,
+    houseNumber,
+    streetName,
+    City,
+) {
+    try {
+        const response = await fetch('/api/users.php', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: emailAddress,
+                password: passWord,
+                postcode: postCode,
+                house_number: houseNumber,
+                street_name: streetName,
+                city: City,
+            }),
+        });
+        if (!response.ok) {
+            console.log();
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log(result);
+    } catch (error) {
+        console.error(error.message);
+    }
+}

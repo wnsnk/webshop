@@ -1,9 +1,8 @@
 'use strict';
 
 import FormValidator from './modules/validate_form.js';
+import { createUser } from './modules/fetch.js';
 const formValidator = new FormValidator();
-
-// console.log('tet');
 
 const eMailInput = document.querySelector('#floatingInput');
 const pass0Input = document.querySelector('#floatingPassword0');
@@ -18,36 +17,57 @@ const streetNameInput = document.querySelector('#streetName');
 const cityInput = document.querySelector('#city');
 
 registerBtn.addEventListener('click', function () {
+    const warnings = [];
+    let warning;
     // clear warnings
     warningsDiv.innerHTML = '';
     // check if inputs are filled
-    if (!eMailInput.value) {
-        warningsDiv.appendChild(
-            formValidator.createWarningElement(
-                'Email address can not be empty!',
-            ),
-        );
+    if (
+        !eMailInput.value ||
+        !pass0Input.value ||
+        !pass1Input.value ||
+        !postCodeInput.value ||
+        !houseNumberInput.value ||
+        !streetNameInput.value ||
+        !cityInput.value
+    ) {
+        warning = 'All fields need to be filled!';
+        warnings.push(warning);
+        warningsDiv.appendChild(formValidator.createWarningElement(warning));
     }
 
-    if (!pass0Input.value || !pass1Input.value) {
-        warningsDiv.appendChild(
-            formValidator.createWarningElement('Password can not be empty!'),
+    if (pass0Input.value) {
+        const passwordValidation = formValidator.validatePassword(
+            pass0Input.value,
         );
-    }
-
-    const passwordValidation = formValidator.validatePassword(pass0Input.value);
-    if (!passwordValidation[0]) {
-        warningsDiv.appendChild(
-            formValidator.createWarningElement(passwordValidation[1]),
-        );
+        if (!passwordValidation[0]) {
+            warning = passwordValidation[1];
+            warnings.push(warning);
+            warningsDiv.appendChild(
+                formValidator.createWarningElement(warning),
+            );
+        }
     }
 
     // CHECK IF PASSWORDS MATCH
     const passwordsMatch = pass0Input.value === pass1Input.value ? true : false;
 
     if (!passwordsMatch) {
-        warningsDiv.appendChild(
-            formValidator.createWarningElement('Passwords do not match!'),
+        warning = 'Passwords do not match!';
+        warnings.push(warning);
+        warningsDiv.appendChild(formValidator.createWarningElement(warning));
+    }
+
+    // CHECK IF NO WARNINGS.
+    if (warnings.length === 0) {
+        // SEND POST REQUEST
+        createUser(
+            eMailInput.value,
+            pass0Input.value,
+            postCodeInput.value,
+            houseNumberInput.value,
+            streetNameInput.value,
+            cityInput.value,
         );
     }
 });
