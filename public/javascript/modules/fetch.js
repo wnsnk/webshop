@@ -28,3 +28,23 @@ export async function createUser(
         console.error(error.message);
     }
 }
+
+export async function logInUser(emailAddress, passWord) {
+    try {
+        const response = await fetch('/api/log_in.php', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: emailAddress,
+                password: passWord,
+            }),
+        });
+        if (!response.ok) {
+            console.log();
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log(result);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
