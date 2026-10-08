@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +9,7 @@
     <title>Index</title>
     <?php include('../src/templates/bootstrap.html') ?>
 </head>
-<?php include('../src/templates/header.html') ?>
+<?php include('../src/templates/header.php') ?>
 
 
 

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <header
     class="d-flex container flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     <div class="col-md-3 mb-2 mb-md-0"> <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none"> <svg
@@ -11,8 +13,17 @@
         <li><a href="#" class="nav-link px-2">FAQs</a></li>
         <li><a href="#" class="nav-link px-2">About</a></li>
     </ul>
+
     <div class="col-md-3 text-end">
-        <a href="/log-in.php" type="button" class="btn btn-outline-primary me-2">Login</a>
-        <a href="/register.php" type="button" class="btn btn-primary">Sign-up</a>
+        <?php
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+            echo '<a href="/log-out.php" type="button" class="btn btn-outline-primary me-2">Log out</a>';
+        } else {
+            echo '<a href="/log-in.php" type="button" class="btn btn-outline-primary me-2">Login</a>';
+            echo '<a href="/register.php" type="button" class="btn btn-primary">Sign-up</a>';
+        }
+        ?>
+
+
     </div>
 </header>

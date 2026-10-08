@@ -44,6 +44,9 @@ export async function logInUser(emailAddress, passWord) {
         }
         const result = await response.json();
         console.log(result);
+        if (result['succes']) {
+            document.location.href = '/';
+        }
     } catch (error) {
         console.error(error.message);
     }

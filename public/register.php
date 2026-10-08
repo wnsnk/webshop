@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +11,7 @@
 
 <body data-bs-theme="dark">
 
-    <?php include('../src/templates/header.html') ?>
+    <?php include('../src/templates/header.php') ?>
 
     <div id="warnings"></div>
 
