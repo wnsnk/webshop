@@ -19,18 +19,18 @@
     <div class="d-flex align-items-center py-4 ">
         <div class="form-sign-in w-50 m-auto">
             <div data-np-autofill-form-type="login" data-np-watching="1">
-                <h1 class=>Log in!</h1>
+                <h1 class=>Inloggen!</h1>
                 <div class="form-floating">
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" data-np-checked="1" data-np-autofill-field-type="username">
-                    <label for="floatingInput">Email address</label>
+                    <label for="floatingInput">Email adres</label>
                 </div>
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" data-np-checked="1" data-np-autofill-field-type="password">
-                    <label for="floatingPassword0">Password</label>
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Wachtwoord" data-np-checked="1" data-np-autofill-field-type="password">
+                    <label for="floatingPassword0">Wachtwoord</label>
                 </div>
 
                 <br>
-                <button id="logInBtn" class="btn btn-primary w-100 py-2">Log in</button>
+                <button id="logInBtn" class="btn btn-primary w-100 py-2">Inloggen</button>
             </div>
         </div>
     </div>

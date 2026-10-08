@@ -11,15 +11,15 @@ $_SESSION['logged_in'] = false;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logged out!</title>
+    <title>uitgelogd!</title>
     <?php include('../src/templates/bootstrap.html'); ?>
 </head>
 
 <body data-bs-theme="dark">
     <?php include('../src/templates/header.php'); ?>
     <div class="container">
-        <h1>Succesfully logged out!</h1>
-        <p>Redirecting...</p>
+        <h1>Succesvol uitgelogd</h1>
+        <p>Je wordt zo teruggestuurd...</p>
         <?php header('Location: /')  ?>
     </div>
 </body>

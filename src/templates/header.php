@@ -8,19 +8,21 @@
             </svg> </a> </div>
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="#" class="nav-link px-2">Features</a></li>
-        <li><a href="#" class="nav-link px-2">Pricing</a></li>
+        <li><a href="#" class="nav-link px-2">Producten</a></li>
         <li><a href="#" class="nav-link px-2">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2">About</a></li>
+        <li><a href="#" class="nav-link px-2">Over ons</a></li>
     </ul>
 
     <div class="col-md-3 text-end">
         <?php
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-            echo '<a href="/log-out.php" type="button" class="btn btn-outline-primary me-2">Log out</a>';
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+            if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']) {
+                echo '<a href="/add-product.php" type="button" class="btn btn-primary me-2">Producten toevoegen</a>';
+            }
+            echo '<a href="/log-out.php" type="button" class="btn btn-outline-primary me-2">Uitloggen</a>';
         } else {
-            echo '<a href="/log-in.php" type="button" class="btn btn-outline-primary me-2">Login</a>';
-            echo '<a href="/register.php" type="button" class="btn btn-primary">Sign-up</a>';
+            echo '<a href="/log-in.php" type="button" class="btn btn-outline-primary me-2">Inloggen</a>';
+            echo '<a href="/register.php" type="button" class="btn btn-primary">Registreren</a>';
         }
         ?>
 
