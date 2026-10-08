@@ -18,8 +18,11 @@ if ($method == 'POST') {
     if (mysqli_num_rows($query) > 0) {
         $row = mysqli_fetch_assoc($query);
         if (password_verify($input['password'], $row['password_'])) {
-            echo json_encode(['succes' => true]);
             $_SESSION['logged_in'] = true;
+            if ($row['is_admin']) {
+                $_SESSION['is_admin'] = true;
+            }
+            echo json_encode(['succes' => true]);
         } else {
             echo json_encode(['succes' => false, 'error' => 'Password does not match.']);
         }

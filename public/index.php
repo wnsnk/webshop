@@ -9,11 +9,10 @@
     <title>Index</title>
     <?php include('../src/templates/bootstrap.html') ?>
 </head>
-<?php include('../src/templates/header.php') ?>
-
-
 
 <body data-bs-theme="dark">
+    <?php include('../src/templates/header.php') ?>
+    <h1>hoi</h1>
 
 </body>
 

@@ -32,7 +32,7 @@
                     <label for="floatingPassword1">Herhaal je Wachtwoord</label>
                 </div>
                 <br>
-                <h2>Address</h2>
+                <h2>Adresgegevens</h2>
                 <div class="form-floating">
                     <input type="text" class="form-control" id="postcode" placeholder="Postcode" data-np-checked="1">
                     <label for="postcode">Postcode</label>
@@ -41,7 +41,7 @@
                     <div class="col col-md-8">
                         <input type="text" class="form-control" id="houseNumber" placeholder="Huisnummer" data-np-checked="1">
                     </div>
-                    <div class="col col-md-4">
+                    <div class="col">
                         <button id="fillAddress" class="btn btn-secondary">Vul adres in.</button>
                     </div>
 

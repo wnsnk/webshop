@@ -16,8 +16,8 @@ if ($method == 'POST') {
     $city = $input['city'];
 
 
-    $sql = "INSERT INTO users(email_address, password_, postcode, house_number, street_name, city) 
-    VALUES ('$email', '$password', '$postcode', '$houseNumber', '$streetName', '$city')";
+    $sql = "INSERT INTO users(email_address, password_, postcode, house_number, street_name, city, is_admin) 
+    VALUES ('$email', '$password', '$postcode', '$houseNumber', '$streetName', '$city', 0)";
 
     $query = mysqli_query($connection, $sql);
     if ($query) {
