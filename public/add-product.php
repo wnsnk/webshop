@@ -34,6 +34,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && isset($_SESSION['
                 <textarea class="form-control" name="description" id="description" maxlength="500"></textarea>
             </div>
             <div class="mb-3">
+                <label for="description" class="form-label">Product Code</label>
+                <textarea class="form-control" name="code" id="code" maxlength="500"></textarea>
+            </div>
+            <div class="mb-3">
                 <label for="imgUrl" class="form-label">Foto URL</label>
                 <input type="url" name="imgUrl" class="form-control" id="imgUrl" maxlength="100">
             </div>
@@ -51,7 +55,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && isset($_SESSION['
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Toevoegen</button>
+            <button type="submit" id="submit" class="btn btn-primary">Toevoegen</button>
         </form>
     </div>
 
@@ -67,25 +71,15 @@ $connection = include('../src/database.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['productName'];
     $description = $_POST['description'];
+    $code = $_POST['code'];
     $imgUrl = $_POST['imgUrl'];
     $size = $_POST['size'];
     $amount = $_POST['amount'];
     $price = $_POST['price'];
-    error_log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-
-    error_log($name);
-    error_log($description);
-    error_log($imgUrl);
-    error_log($size);
-    error_log($amount);
-    error_log(gettype($amount));
-    error_log($price);
-    // NULL?????
 
 
-
-    $sql = "INSERT INTO products(product_name, product_description, img_url, size, amount, product_price) 
-            VALUES ('$name', '$description', '$imgUrl', '$size', $amount, $price)";
+    $sql = "INSERT INTO products(product_name, product_description, product_code, img_url, size, amount, product_price) 
+            VALUES ('$name', '$description', $code, '$imgUrl', '$size', $amount, $price)";
     $query = mysqli_query($connection, $sql);
     if ($query) {
         echo json_encode(['succes' => true]);
