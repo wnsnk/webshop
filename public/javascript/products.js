@@ -68,8 +68,9 @@ function showProducts(results, columns) {
         const paragraphEl = createElementWithClass('p', 'card-text');
         paragraphEl.textContent = result['product_description'];
         cardBodyEl.appendChild(paragraphEl);
-        const aBtnEl = createElementWithClass('a', 'btn-solid theme-primary');
-        aBtnEl.textContent = 'test';
+        const aBtnEl = createElementWithClass('a', 'btn btn-primary');
+        aBtnEl.textContent = 'Bekijk product';
+        aBtnEl.href = `/product.php?product=${result['id']}`;
         cardBodyEl.appendChild(aBtnEl);
         rowElement.appendChild(cardEl);
         columnsCount++;

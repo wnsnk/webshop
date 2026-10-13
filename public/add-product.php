@@ -1,3 +1,5 @@
+<!-- TODO FIX SIZES AND AMOUNTS -->
+
 <?php
 
 use function PHPSTORM_META\type;
@@ -34,25 +36,28 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && isset($_SESSION['
                 <textarea class="form-control" name="description" id="description" maxlength="500"></textarea>
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Product Code</label>
-                <textarea class="form-control" name="code" id="code" maxlength="500"></textarea>
-            </div>
-            <div class="mb-3">
                 <label for="imgUrl" class="form-label">Foto URL</label>
                 <input type="url" name="imgUrl" class="form-control" id="imgUrl" maxlength="100">
-            </div>
-            <div class="mb-3">
-                <label for="size" class="form-label">Maat</label>
-                <input type="text" name="size" class="form-control" id="size" maxlength="5">
-            </div>
-            <div class="mb-3">
-                <label for="amount" class="form-label">Voorraad</label>
-                <input type="number" name="amount" class="form-control" id="amount">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Prijs</label>
                 <input type="number" step="0.01" name="price" class="form-control" id="price">
             </div>
+            <h2>Maten en voorraad</h2>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label for="size" class="form-label">Maat</label>
+                    <input type="text" name="size" class="form-control" id="size" maxlength="5">
+                </div>
+                <div class="mb-3 col">
+                    <label for="amount" class="form-label">Voorraad</label>
+                    <input type="number" name="amount" class="form-control" id="amount">
+                </div>
+                <div class="col">
+                    <button class="btn btn-warning">Maat toevoegen</button>
+                </div>
+            </div>
+
 
 
             <button type="submit" id="submit" class="btn btn-primary">Toevoegen</button>
@@ -65,28 +70,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && isset($_SESSION['
 
 </html>
 
+
 <?php
-$connection = include('../src/database.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['productName'];
-    $description = $_POST['description'];
-    $code = $_POST['code'];
-    $imgUrl = $_POST['imgUrl'];
-    $size = $_POST['size'];
-    $amount = $_POST['amount'];
-    $price = $_POST['price'];
-
-
-    $sql = "INSERT INTO products(product_name, product_description, product_code, img_url, size, amount, product_price) 
-            VALUES ('$name', '$description', $code, '$imgUrl', '$size', $amount, $price)";
-    $query = mysqli_query($connection, $sql);
-    if ($query) {
-        echo json_encode(['succes' => true]);
-    } else {
-        echo json_encode(['succes' => false]);
-        // response status 500?
-    }
-
-    mysqli_close($connection);
-}
+include('api/add_product.php');
