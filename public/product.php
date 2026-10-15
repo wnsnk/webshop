@@ -6,7 +6,6 @@ $connection = include('../src/database.php');
 
 $productId = $_GET['product'];
 $sql = "SELECT * FROM products WHERE id = '$productId'";
-error_log($sql);
 $result = mysqli_query($connection, $sql);
 if (mysqli_num_rows($result) > 0) {
     $products = [];
@@ -17,7 +16,9 @@ if (mysqli_num_rows($result) > 0) {
     $name = $product['product_name'];
     $description = $product['product_description'];
     $imgUrl = $product['img_url'];
-    $sizes = json_decode($product['sizeAmount']);
+    $sizes = $product['size_amount'];
+    $sizes = json_decode($sizes, true);
+
     $price = $product['product_price'];
 } else {
     echo 'ERROR 404: page does not exist';
@@ -36,22 +37,70 @@ if (mysqli_num_rows($result) > 0) {
 
 <body data-bs-theme="dark">
     <?php include('../src/templates/header.php') ?>
-    <div class="container">
+    <div class="d-flex justify-content-center">
         <div class="card" style="width: 50vw;">
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <?php
+                        echo "<img src=$imgUrl class='d-block w-100'>"
+                        ?>
+                    </div>
+                    <div class="carousel-item">
+                        <?php
+                        echo "<img src=$imgUrl class='d-block w-100'>"
+                        ?>
+                    </div>
+                    <div class="carousel-item">
+                        <?php
+                        echo "<img src=$imgUrl class='d-block w-100'>"
+                        ?>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
             <?php
-            echo "<img src=$imgUrl class='card-img-top'>";
             echo "<div class='card-body'>";
             echo "<h1 class='card-title'> $name </h1>";
             echo "<h2> €$price </h2>";
             echo "<p class='card-text'> $description </p>";
-            echo "<button class='btn btn-primary'>Voeg toe aan winkelwagen</a>";
-            echo "</div>";
-
-
             ?>
-        </div>
-    </div>
+            <div class="row">
+                <div id="radioSizes" class="btn-group col col-md-8" role="group">
+                    <?php
+                    foreach ($sizes as $size => $amount) {
+                        if ($amount > 0) {
+                            echo "<input type='radio' name='sizes' class='btn-check' id='$size' > ";
+                            echo "<label class='btn btn-outline-primary' for='$size'>$size</label> ";
+                        } else {
+                            echo "<input type='radio' name='sizes' class='btn-check' id='$size' disabled > ";
+                            echo "<label class='btn btn-outline-primary' for='$size'>$size</label> ";
+                        }
+                    }
+                    ?>
 
+                </div>
+                <div class="col cold-md-4 float-right">
+                    <button class='btn btn-primary'>Voeg toe aan winkelwagen</a>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+    </div>
+    <script src="javascript/product.js"></script>
 </body>
 
 </html>

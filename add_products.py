@@ -3,10 +3,10 @@ import json
 import random
 
 
-for i in range(200):
+for i in range(1):
     print(i)
     size_amounts = {'xxs': random.randint(0, 75),
-                    'xs': random.randint(0, 75),
+                    'xs': random.randint(0, 75),  
                     's': random.randint(0, 75),
                     'm': random.randint(0, 75),
                     'l': random.randint(0, 75),
