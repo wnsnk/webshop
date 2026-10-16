@@ -2,12 +2,12 @@
 
 export default class Product {
     constructor(id, productName, description, size, amount, price) {
-        this.id = id;
+        this.id = Number(id);
         this.productName = productName;
         this.description = description;
         this.size = size;
-        this.amount = amount;
-        this.price = price;
+        this.amount = Number(amount);
+        this.price = Number(price);
     }
     toJSON() {
         return {

@@ -15,10 +15,28 @@ export default class ShoppingCart {
      */
     add(product) {
         this.items['shoppingCart'].push(JSON.stringify(product));
-        window.localStorage.setItem('cart', JSON.stringify(this.items));
+        this.updateLocalStorage();
     }
 
-    remove(product) {}
+    remove(product) {
+        let index = 0;
+        for (let item of this.items['shoppingCart']) {
+            item = JSON.parse(item);
+            if (
+                item['id'] === product['id'] &&
+                item['size'] === product['size']
+            ) {
+                this.items['shoppingCart'].splice(index, 1);
 
-    updateLocalStorage() {}
+                console.log('deleted');
+                console.log(this.items['shoppingCart']);
+                this.updateLocalStorage();
+            }
+            index++;
+        }
+    }
+
+    updateLocalStorage() {
+        window.localStorage.setItem('cart', JSON.stringify(this.items));
+    }
 }
