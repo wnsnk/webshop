@@ -18,7 +18,7 @@ export default class ShoppingCart {
         this.updateLocalStorage();
     }
 
-    remove(product) {
+    remove(product, amountToDelete) {
         let index = 0;
         for (let item of this.items['shoppingCart']) {
             item = JSON.parse(item);
@@ -26,9 +26,14 @@ export default class ShoppingCart {
                 item['id'] === product['id'] &&
                 item['size'] === product['size']
             ) {
-                this.items['shoppingCart'].splice(index, 1);
+                if (amountToDelete < item['amount']) {
+                    item['amount'] = item['amount'] - amountToDelete;
+                    this.items['shoppingCart'][index] = JSON.stringify(item);
+                    this.updateLocalStorage();
+                } else {
+                    this.items['shoppingCart'].splice(index, 1);
+                }
 
-                console.log('deleted');
                 console.log(this.items['shoppingCart']);
                 this.updateLocalStorage();
             }

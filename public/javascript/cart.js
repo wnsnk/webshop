@@ -42,10 +42,23 @@ function showShoppingCart() {
 
         const deleteTdElement = document.createElement('td');
         deleteTdElement.scope = 'col';
+        const deleteAmountSelectElement = createElementWithClass(
+            'select',
+            'form-select',
+        );
+        for (let i = 1; i <= product['amount']; i++) {
+            const optionElement = document.createElement('option');
+            optionElement.value = i;
+            optionElement.textContent = i;
+            deleteAmountSelectElement.appendChild(optionElement);
+        }
+        deleteTdElement.appendChild(deleteAmountSelectElement);
+
         const deleteBtn = createElementWithClass('button', 'btn-close');
         deleteBtn.addEventListener('click', function () {
             // DELETE FROM SHOPPING CART
-            cart.remove(product);
+            const amountToDelete = Number(deleteAmountSelectElement.value);
+            cart.remove(product, amountToDelete);
             showShoppingCart();
         });
         deleteTdElement.appendChild(deleteBtn);
