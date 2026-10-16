@@ -27,9 +27,17 @@
             </thead>
             <tbody>
             </tbody>
+            <tfoot>
+                <th scope="col">Totaal:</th>
+                <th scope="col" id="totalDiffId"></th>
+                <th scope="col"></th>
+                <th scope="col" id="totalAmount"></th>
+                <th scope="col" id="totalPrice"></th>
+                <th scope="col"><button class="btn btn-danger">Afrekenen</button></th>
+            </tfoot>
+
         </table>
 
-        <button class="btn btn-danger">Afrekenen</button>
 
     </div>
 

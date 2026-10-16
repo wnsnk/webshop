@@ -6,8 +6,14 @@ const cart = new ShoppingCart();
 
 const itemsDiv = document.querySelector('#items');
 console.log(cart.items);
+
+let totalAmount, totalPrice;
+
 showShoppingCart();
+
 function showShoppingCart() {
+    totalAmount = 0;
+    totalPrice = 0;
     const tbodyElement = document.querySelector('tbody');
     tbodyElement.innerHTML = '';
     for (let product of cart.items['shoppingCart']) {
@@ -33,11 +39,14 @@ function showShoppingCart() {
         const amountElement = document.createElement('td');
         amountElement.scope = 'col';
         amountElement.textContent = product['amount'];
+        totalAmount += product['amount'];
         trElement.appendChild(amountElement);
 
         const priceElement = document.createElement('td');
         priceElement.scope = 'col';
-        priceElement.textContent = product['price'];
+        const totalPriceProduct = product['price'] * product['amount'];
+        priceElement.textContent = `€ ${totalPriceProduct}`;
+        totalPrice += totalPriceProduct;
         trElement.appendChild(priceElement);
 
         const deleteTdElement = document.createElement('td');
@@ -72,5 +81,14 @@ function showShoppingCart() {
         trElement.appendChild(deleteTdElement);
 
         tbodyElement.appendChild(trElement);
+
+        showTotals();
     }
+}
+
+function showTotals() {
+    document.querySelector('#totalDiffId').textContent =
+        cart.items['shoppingCart'].length;
+    document.querySelector('#totalAmount').textContent = totalAmount;
+    document.querySelector('#totalPrice').textContent = `€ ${totalPrice}`;
 }
