@@ -42,6 +42,10 @@ function showShoppingCart() {
 
         const deleteTdElement = document.createElement('td');
         deleteTdElement.scope = 'col';
+        const rowDiv = createElementWithClass('div', 'row');
+        deleteTdElement.appendChild(rowDiv);
+
+        const colDivSelect = createElementWithClass('div', 'col');
         const deleteAmountSelectElement = createElementWithClass(
             'select',
             'form-select',
@@ -52,8 +56,10 @@ function showShoppingCart() {
             optionElement.textContent = i;
             deleteAmountSelectElement.appendChild(optionElement);
         }
-        deleteTdElement.appendChild(deleteAmountSelectElement);
+        colDivSelect.appendChild(deleteAmountSelectElement);
+        rowDiv.appendChild(colDivSelect);
 
+        const colDivBtn = createElementWithClass('div', 'col');
         const deleteBtn = createElementWithClass('button', 'btn-close');
         deleteBtn.addEventListener('click', function () {
             // DELETE FROM SHOPPING CART
@@ -61,7 +67,8 @@ function showShoppingCart() {
             cart.remove(product, amountToDelete);
             showShoppingCart();
         });
-        deleteTdElement.appendChild(deleteBtn);
+        colDivBtn.appendChild(deleteBtn);
+        rowDiv.appendChild(colDivBtn);
         trElement.appendChild(deleteTdElement);
 
         tbodyElement.appendChild(trElement);
