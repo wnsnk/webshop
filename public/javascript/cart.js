@@ -81,14 +81,16 @@ function showShoppingCart() {
         trElement.appendChild(deleteTdElement);
 
         tbodyElement.appendChild(trElement);
-
-        showTotals();
     }
+    showTotals();
 }
 
 function showTotals() {
-    document.querySelector('#totalDiffId').textContent =
-        cart.items['shoppingCart'].length;
-    document.querySelector('#totalAmount').textContent = totalAmount;
-    document.querySelector('#totalPrice').textContent = `€ ${totalPrice}`;
+    const totalDiffIdEl = document.querySelector('#totalDiffId');
+    const totalAmountEl = document.querySelector('#totalAmount');
+    const totalPriceEl = document.querySelector('#totalPrice');
+
+    totalDiffIdEl.textContent = cart.items['shoppingCart'].length;
+    totalAmountEl.textContent = totalAmount;
+    totalPriceEl.textContent = `€ ${totalPrice}`;
 }
