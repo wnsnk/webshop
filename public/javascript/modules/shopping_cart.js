@@ -14,8 +14,25 @@ export default class ShoppingCart {
      * @param {Product} product - The product that needs to be added.
      */
     add(product) {
-        this.items['shoppingCart'].push(JSON.stringify(product));
-        this.updateLocalStorage();
+        // TODO CHECK IF ID WITH SIZE IS ALREADY IN SHOPPING CART?
+        let itemInCart = false;
+        let index = 0;
+        for (let item of this.items['shoppingCart']) {
+            item = JSON.parse(item);
+            if (
+                item['id'] === product['id'] &&
+                item['size'] === product['size']
+            ) {
+                itemInCart = true;
+                item['amount'] = item['amount'] += product['amount'];
+                this.items['shoppingCart'][index] = JSON.stringify(item);
+                this.updateLocalStorage();
+            }
+        }
+        if (!itemInCart) {
+            this.items['shoppingCart'].push(JSON.stringify(product));
+            this.updateLocalStorage();
+        }
     }
 
     remove(product, amountToDelete) {
