@@ -44,7 +44,7 @@ export default class FormValidator {
     /**
      * Validates the password.
      *
-     * @param   password The password that needs to be validated.
+     * @param {string}  password The password that needs to be validated.
      *@returns Array with boolean and reason.
      */
     validatePassword(password) {
@@ -105,6 +105,47 @@ export default class FormValidator {
         } else {
             return [true, 'Password is valid.'];
         }
+    }
+    /**
+     * Checks if postcode is in 1234XX format
+     *
+     * @param {string} postCode
+     */
+    postCodeValid(postCode) {
+        if (postCode.length < 6) {
+            return false;
+        }
+        let indexCorrect = false;
+
+        for (let i = 0; i < 4; i++) {
+            for (let num of numbers) {
+                if (postCode.startsWith(num, i)) {
+                    indexCorrect = true;
+                    break;
+                }
+            }
+            if (!indexCorrect) {
+                return false;
+            } else {
+                indexCorrect = false;
+            }
+        }
+
+        const letters = upperCaseLetters.concat(lowerCaseLetters);
+        for (let i = 4; i < 6; i++) {
+            for (let letter of letters) {
+                if (postCode.startsWith(letter, i)) {
+                    indexCorrect = true;
+                    break;
+                }
+            }
+            if (!indexCorrect) {
+                return false;
+            } else {
+                indexCorrect = false;
+            }
+        }
+        return true;
     }
 
     /**

@@ -13,7 +13,7 @@
 
     <?php include('../src/templates/header.php') ?>
 
-    <div id="warnings"></div>
+    <div class="container" id="warnings"></div>
 
     <div class="d-flex align-items-center py-4 ">
         <div class="form-sign-in w-50 m-auto">
@@ -34,7 +34,7 @@
                 <br>
                 <h2>Adresgegevens</h2>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="postcode" placeholder="Postcode" data-np-checked="1">
+                    <input type="text" class="form-control" id="postcode" placeholder="Postcode" data-np-checked="1" minlength="6" maxlength="6">
                     <label for="postcode">Postcode</label>
                 </div>
                 <div class="form-floating row">

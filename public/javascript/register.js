@@ -1,5 +1,7 @@
 'use strict';
 
+// TODO CHECK IF POSTCODE IS 1234XX AND HOUSENUMBER FILLED IN BEFORE SENDING API REQUEST
+
 import FormValidator from './modules/validate_form.js';
 import { createUser } from './modules/fetch.js';
 const formValidator = new FormValidator();
@@ -70,6 +72,11 @@ registerBtn.addEventListener('click', function () {
             cityInput.value,
         );
     }
+});
+
+postCodeInput.addEventListener('click', function () {
+    formValidator.postCodeValid(postCodeInput.value);
+    // TODO IMPLEMENT THIS CORRECTLY
 });
 
 fillAddressBtn.addEventListener('click', function () {

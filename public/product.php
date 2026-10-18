@@ -92,7 +92,6 @@ if (mysqli_num_rows($result) > 0) {
                         }
                     }
                     ?>
-                    <!-- ADD SELECTLIST FOR AMOUNTS -->
                     <select id="amountSelect" class="form-select">
                         <option selected>Kies een maat!</option>
 
