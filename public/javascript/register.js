@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO CHECK IF POSTCODE IS 1234XX AND HOUSENUMBER FILLED IN BEFORE SENDING API REQUEST
-
 import FormValidator from './modules/validate_form.js';
 import { createUser } from './modules/fetch.js';
 const formValidator = new FormValidator();
@@ -17,11 +15,12 @@ const houseNumberInput = document.querySelector('#houseNumber');
 const fillAddressBtn = document.querySelector('#fillAddress');
 const streetNameInput = document.querySelector('#streetName');
 const cityInput = document.querySelector('#city');
+let warnings = [];
+let warning;
 
 registerBtn.addEventListener('click', function () {
-    const warnings = [];
-    let warning;
     // clear warnings
+    warnings = [];
     warningsDiv.innerHTML = '';
     // check if inputs are filled
     if (
@@ -33,7 +32,7 @@ registerBtn.addEventListener('click', function () {
         !streetNameInput.value ||
         !cityInput.value
     ) {
-        warning = 'All fields need to be filled!';
+        warning = 'Vul alle velden in!';
         warnings.push(warning);
         warningsDiv.appendChild(formValidator.createWarningElement(warning));
     }
@@ -55,7 +54,7 @@ registerBtn.addEventListener('click', function () {
     const passwordsMatch = pass0Input.value === pass1Input.value ? true : false;
 
     if (!passwordsMatch) {
-        warning = 'Passwords do not match!';
+        warning = 'Wachtwoorden zijn niet hetzelfde.';
         warnings.push(warning);
         warningsDiv.appendChild(formValidator.createWarningElement(warning));
     }
@@ -74,35 +73,45 @@ registerBtn.addEventListener('click', function () {
     }
 });
 
-postCodeInput.addEventListener('click', function () {
-    formValidator.postCodeValid(postCodeInput.value);
-    // TODO IMPLEMENT THIS CORRECTLY
-});
+// postCodeInput.addEventListener('onblur', function () {
+//     console.log('onblur');
+//     formValidator.postCodeValid(postCodeInput.value);
+//     // TODO IMPLEMENT THIS CORRECTLY
+// });
 
 fillAddressBtn.addEventListener('click', function () {
     streetNameRequest(postCodeInput.value, houseNumberInput.value);
 });
 
 async function streetNameRequest(postCode, houseNum) {
-    try {
-        const response = await fetch('/api/get_address.php', {
-            method: 'GET',
-            headers: {
-                postcode: postCode,
-                houseNumber: houseNum,
-            },
-        });
-        if (!response.ok) {
-            console.log();
-            throw new Error(`Response status: ${response.status}`);
+    if (
+        formValidator.postCodeValid(postCodeInput.value) &&
+        houseNumberInput.value
+    ) {
+        try {
+            const response = await fetch('/api/get_address.php', {
+                method: 'GET',
+                headers: {
+                    postcode: postCode,
+                    houseNumber: houseNum,
+                },
+            });
+            if (!response.ok) {
+                console.log();
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log(result);
+            if (result['street'] && result['city']) {
+                streetNameInput.value = result['street'];
+                cityInput.value = result['city'];
+            }
+        } catch (error) {
+            console.error(error.message);
         }
-        const result = await response.json();
-        console.log(result);
-        if (result['street'] && result['city']) {
-            streetNameInput.value = result['street'];
-            cityInput.value = result['city'];
-        }
-    } catch (error) {
-        console.error(error.message);
+    } else {
+        warning = 'Controleer postcode en huisnummer.';
+        warnings.push(warning);
+        warningsDiv.appendChild(formValidator.createWarningElement(warning));
     }
 }

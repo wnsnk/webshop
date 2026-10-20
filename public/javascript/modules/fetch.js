@@ -24,6 +24,7 @@ export async function createUser(
         }
         const result = await response.json();
         console.log(result);
+        window.location.href = 'log-in.php';
     } catch (error) {
         console.error(error.message);
     }
