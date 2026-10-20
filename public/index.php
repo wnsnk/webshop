@@ -13,10 +13,10 @@
 
 <body data-bs-theme="dark">
     <?php include('../src/templates/header.php') ?>
-
-    <?php include('../src/templates/index_main_carousel.html') ?>
-    <?php include('../src/templates/item_carousel.html') ?>
-
+    <div class="container" style="width: 70%;">
+        <?php include('../src/templates/index_main_carousel.html') ?>
+        <?php include('../src/templates/item_carousel.html') ?>
+    </div>
 
     <?php include('../src/templates/footer.html') ?>
 </body>
