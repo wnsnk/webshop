@@ -8,3 +8,34 @@ export function createElementWithClass(element, classes) {
     el.className = classes;
     return el;
 }
+
+export function createBootstrapCard(
+    productName,
+    productPrice,
+    imgUrl,
+    productId,
+) {
+    const cardDiv = createElementWithClass('div', 'card');
+    cardDiv.style = 'width: 18rem;';
+
+    const imgElement = createElementWithClass('img', 'card-img-top');
+    imgElement.src = imgUrl;
+    cardDiv.appendChild(imgElement);
+
+    const bodyDiv = createElementWithClass('div', 'card-body');
+    const titleElement = createElementWithClass('h5', 'card-title');
+    titleElement.textContent = productName;
+    const priceElement = createElementWithClass('p', 'card-text');
+    priceElement.textContent = `€${productPrice}`;
+    const buttonElement = createElementWithClass('a', 'btn btn-primary');
+    buttonElement.textContent = 'Bekijk product';
+    buttonElement.href = `product.php?product=${productId}`;
+
+    bodyDiv.appendChild(titleElement);
+    bodyDiv.appendChild(priceElement);
+    bodyDiv.appendChild(buttonElement);
+
+    cardDiv.append(bodyDiv);
+
+    return cardDiv;
+}
