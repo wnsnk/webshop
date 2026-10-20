@@ -10,7 +10,7 @@
         <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
         <li><a href="/products.php" class="nav-link px-2">Producten</a></li>
         <li><a href="#" class="nav-link px-2">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2">Over ons</a></li>
+        <li><a href="/about.php" class="nav-link px-2">Over ons</a></li>
 
     </ul>
 

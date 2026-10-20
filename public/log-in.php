@@ -16,8 +16,8 @@
 
     <div id="warnings"></div>
 
-    <div class="d-flex align-items-center py-4 ">
-        <div class="form-sign-in w-50 m-auto">
+    <div class="d-flex align-items-center py-4">
+        <div class="form-sign-in w-25 m-auto">
             <div data-np-autofill-form-type="login" data-np-watching="1">
                 <h1 class=>Inloggen!</h1>
                 <div class="form-floating">
