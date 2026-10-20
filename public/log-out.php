@@ -22,6 +22,7 @@ $_SESSION['logged_in'] = false;
         <p>Je wordt zo teruggestuurd...</p>
         <?php header('Location: /')  ?>
     </div>
+    <?php include('../src/templates/footer.html') ?>
 </body>
 
 </html>

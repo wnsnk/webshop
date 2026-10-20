@@ -110,7 +110,8 @@ if (mysqli_num_rows($result) > 0) {
 
 
     </div>
-    </div>
+    <?php include('../src/templates/footer.html') ?>
+
     <script type="module" src="javascript/product.js"></script>
 </body>
 

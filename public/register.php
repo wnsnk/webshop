@@ -60,6 +60,7 @@
             </div>
         </div>
     </div>
+    <?php include('../src/templates/footer.html') ?>
 
     <script type="module" src="javascript/register.js"></script>
 </body>

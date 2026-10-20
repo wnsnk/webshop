@@ -18,7 +18,7 @@
     <?php include('../src/templates/item_carousel.html') ?>
 
 
-
+    <?php include('../src/templates/footer.html') ?>
 </body>
 
 </html>
