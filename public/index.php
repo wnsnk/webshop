@@ -8,11 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <?php include('../src/templates/bootstrap.html') ?>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body data-bs-theme="dark">
     <?php include('../src/templates/header.php') ?>
-    <h1>hoi</h1>
+    <?php include('../src/templates/index_main_carousel.html') ?>
+
+
 
 </body>
 
