@@ -16,7 +16,6 @@ export function createBootstrapCard(
     productId,
 ) {
     const cardDiv = createElementWithClass('div', 'card');
-    cardDiv.style = 'width: 18rem;';
 
     const imgElement = createElementWithClass('img', 'card-img-top');
     imgElement.src = imgUrl;

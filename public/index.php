@@ -15,7 +15,7 @@
     <?php include('../src/templates/header.php') ?>
 
     <?php include('../src/templates/index_main_carousel.html') ?>
-    <?php include('../src/templates/item_carousel.php') ?>
+    <?php include('../src/templates/item_carousel.html') ?>
 
 
 

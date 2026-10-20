@@ -19,7 +19,7 @@ async function getProducts() {
         }
         const results = await response.json();
         console.log(results);
-        const randomItems = getRandomItems(results, 9);
+        const randomItems = getRandomItems(results, 12);
         // TODO FIX ROW COL
         let count = 0;
         let carouselItemCount = 0;
@@ -28,14 +28,14 @@ async function getProducts() {
             if (carouselItemCount === 0) {
                 carouselItemDiv = createElementWithClass(
                     'div',
-                    'carousel-item row',
+                    'carousel-item',
                 );
                 if (count === 0) {
                     carouselItemDiv.classList.add('active');
                     console.log(carouselItemDiv.classList);
                 }
-                // rowDiv = createElementWithClass('div', 'row');
-                // carouselItemDiv.appendChild(rowDiv);
+                rowDiv = createElementWithClass('div', 'row');
+                carouselItemDiv.appendChild(rowDiv);
                 carousel.appendChild(carouselItemDiv);
             }
             carouselItemCount++;
@@ -47,9 +47,11 @@ async function getProducts() {
                 item['id'],
             );
             card.classList.add('col');
-            carouselItemDiv.appendChild(card);
 
-            if (carouselItemCount >= 3) {
+            console.log(card.classList);
+            rowDiv.appendChild(card);
+
+            if (carouselItemCount >= 4) {
                 carouselItemCount = 0;
             }
         }
