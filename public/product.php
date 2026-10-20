@@ -41,73 +41,73 @@ if (mysqli_num_rows($result) > 0) {
         <div id="warnings">
 
         </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <div class="card" style="width: 50vw;">
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <!-- TODO EDIT DB TO ADD MORE THAN 1 IMAGE -->
-                        <?php
-                        echo "<img src=$imgUrl class='d-block w-100'>"
-                        ?>
+
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 40vw;">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <!-- TODO EDIT DB TO ADD MORE THAN 1 IMAGE -->
+                            <?php
+                            echo "<img src=$imgUrl class='d-block w-100'>"
+                            ?>
+                        </div>
+                        <div class="carousel-item">
+                            <?php
+                            echo "<img src=$imgUrl class='d-block w-100'>"
+                            ?>
+                        </div>
+                        <div class="carousel-item">
+                            <?php
+                            echo "<img src=$imgUrl class='d-block w-100'>"
+                            ?>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <?php
-                        echo "<img src=$imgUrl class='d-block w-100'>"
-                        ?>
-                    </div>
-                    <div class="carousel-item">
-                        <?php
-                        echo "<img src=$imgUrl class='d-block w-100'>"
-                        ?>
-                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-            <?php
-            echo "<div class='card-body'>";
-            echo "<h1 class='card-title' id='productName'> $name </h1>";
-            echo "<h2> €<span id='price'>$price</span> </h2>";
-            echo "<h3>Product ID: <span id='productId'> $productId </span></h3>";
-            echo "<p class='card-text' id='productDescription'> $description </p>";
-            ?>
-            <div class="row">
-                <div id="radioSizes" class="btn-group col col-md-8" role="group">
-                    <?php
-                    foreach ($sizes as $size => $amount) {
-                        if ($amount > 0) {
-                            echo "<input type='radio' name='sizes' class='btn-check' id='$size' > ";
-                            echo "<label class='btn btn-outline-primary' for='$size'>$size</label> ";
-                        } else {
-                            echo "<input type='radio' name='sizes' class='btn-check' id='$size' disabled > ";
-                            echo "<label class='btn btn-outline-primary' for='$size'>$size</label> ";
+                <?php
+                echo "<div class='card-body'>";
+                echo "<h1 class='card-title' id='productName'> $name </h1>";
+                echo "<h2> €<span id='price'>$price</span> </h2>";
+                echo "<h3>Product ID: <span id='productId'> $productId </span></h3>";
+                echo "<p class='card-text' id='productDescription'> $description </p>";
+                ?>
+                <div class="row">
+                    <div id="radioSizes" class="btn-group col col-md-8" role="group">
+                        <?php
+                        foreach ($sizes as $size => $amount) {
+                            if ($amount > 0) {
+                                echo "<input type='radio' name='sizes' class='btn-check' id='$size' > ";
+                                echo "<label class='btn btn-outline-primary' for='$size'>$size</label> ";
+                            } else {
+                                echo "<input type='radio' name='sizes' class='btn-check' id='$size' disabled > ";
+                                echo "<label class='btn btn-outline-primary' for='$size'>$size</label> ";
+                            }
                         }
-                    }
-                    ?>
-                    <select id="amountSelect" class="form-select">
-                        <option selected>Kies een maat!</option>
+                        ?>
+                        <select id="amountSelect" class="form-select">
+                            <option selected>Kies een maat!</option>
 
-                    </select>
+                        </select>
 
+                    </div>
+                    <div class="col cold-md-4 float-right">
+                        <button id="addToCart" class='btn btn-primary'>Voeg toe aan winkelwagen</a>
+                    </div>
                 </div>
-                <div class="col cold-md-4 float-right">
-                    <button id="addToCart" class='btn btn-primary'>Voeg toe aan winkelwagen</a>
-                </div>
+
+
+
+
             </div>
-
-
-
-
         </div>
-
 
     </div>
     <?php include('../src/templates/footer.html') ?>
