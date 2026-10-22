@@ -1,4 +1,5 @@
 'use strict';
+import { checkout } from './fetch.js';
 import Product from './product.js';
 
 export default class ShoppingCart {
@@ -57,7 +58,9 @@ export default class ShoppingCart {
             index++;
         }
     }
-
+    tryCheckout() {
+        checkout(this.items['shoppingCart']);
+    }
     updateLocalStorage() {
         window.localStorage.setItem('cart', JSON.stringify(this.items));
     }

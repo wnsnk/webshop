@@ -5,11 +5,15 @@ import { createElementWithClass } from './modules/elements.js';
 const cart = new ShoppingCart();
 
 const itemsDiv = document.querySelector('#items');
-console.log(cart.items);
+const checkoutBtn = document.querySelector('#checkout');
 
 let totalAmount, totalPrice;
 
 showShoppingCart();
+
+checkoutBtn.addEventListener('click', function () {
+    cart.tryCheckout();
+});
 
 function showShoppingCart() {
     totalAmount = 0;

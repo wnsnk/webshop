@@ -33,8 +33,7 @@
                 <th scope="col"></th>
                 <th scope="col" id="totalAmount"></th>
                 <th scope="col" id="totalPrice"></th>
-                <th scope="col"><button class="btn btn-danger">Afrekenen</button></th>
-                <!-- TODO AFREKENEN. CHECK OF ALLES OP VOORRAAD IS EN BETAAL -->
+                <th scope="col"><button id="checkout" class="btn btn-danger">Afrekenen</button></th>
             </tfoot>
 
         </table>
