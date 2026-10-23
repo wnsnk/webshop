@@ -1,5 +1,5 @@
 'use strict';
-import { checkout } from './fetch.js';
+
 import Product from './product.js';
 
 export default class ShoppingCart {
@@ -9,13 +9,13 @@ export default class ShoppingCart {
             window.localStorage.setItem('cart', JSON.stringify(emptyCart));
         }
         this.items = JSON.parse(window.localStorage.getItem('cart'));
+        console.log(this.items['shoppingCart']);
     }
     /**
      * adds product to shopping cart
      * @param {Product} product - The product that needs to be added.
      */
     add(product) {
-        // TODO CHECK IF ID WITH SIZE IS ALREADY IN SHOPPING CART?
         let itemInCart = false;
         let index = 0;
         for (let item of this.items['shoppingCart']) {
@@ -52,15 +52,36 @@ export default class ShoppingCart {
                     this.items['shoppingCart'].splice(index, 1);
                 }
 
-                console.log(this.items['shoppingCart']);
                 this.updateLocalStorage();
             }
             index++;
         }
     }
-    tryCheckout() {
-        checkout(this.items['shoppingCart']);
+    async compareCartStock() {
+        try {
+            const response = await fetch('/api/check_stock.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    cart: this.items['shoppingCart'],
+                }),
+            });
+
+            if (!response.ok) {
+                console.log();
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const result = await response.json();
+            // console.log(this.items['shoppingCart']);
+            // console.log(result);
+            if (!result['succes']) {
+                ((this.items['shoppingCart'] = result['updated_cart']),
+                    this.updateLocalStorage());
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
     }
+
     updateLocalStorage() {
         window.localStorage.setItem('cart', JSON.stringify(this.items));
     }

@@ -15,7 +15,13 @@ checkoutBtn.addEventListener('click', function () {
     cart.tryCheckout();
 });
 
-function showShoppingCart() {
+async function showShoppingCart() {
+    const before = cart.items['shoppingCart'];
+    await cart.compareCartStock();
+    const after = cart.items['shoppingCart'];
+    if (before != after) {
+        console.log('SOMETHING HAS CHANGED'); //TODO CREATE WARNING ELEMENT
+    }
     totalAmount = 0;
     totalPrice = 0;
     const tbodyElement = document.querySelector('tbody');

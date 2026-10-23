@@ -52,26 +52,3 @@ export async function logInUser(emailAddress, passWord) {
         console.error(error.message);
     }
 }
-
-export async function checkout(shoppingCart) {
-    try {
-        const response = await fetch('/api/checkout.php', {
-            method: 'POST',
-            body: JSON.stringify({
-                cart: shoppingCart,
-            }),
-        });
-        console.log(response.method);
-        if (!response.ok) {
-            console.log();
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const result = await response.json();
-        console.log(result);
-        // if (result['succes']) {
-        //     document.location.href = '/';
-        // }
-    } catch (error) {
-        console.error(error.message);
-    }
-}
