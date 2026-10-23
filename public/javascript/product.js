@@ -5,6 +5,7 @@ import ShoppingCart from './modules/shopping_cart.js';
 import Product from './modules/product.js';
 
 const cart = new ShoppingCart();
+let sizeSelected;
 
 const validateForm = new FormValidator();
 const warningsDiv = document.querySelector('#warnings');
@@ -30,7 +31,6 @@ addToCartBtn.addEventListener('click', function () {
  * Gets the size selected from the radiobuttons
  */
 function getSize() {
-    let sizeSelected;
     for (const sizeRadioBtn of sizeRadioBtns) {
         if (sizeRadioBtn.checked) {
             sizeSelected = sizeRadioBtn.id;
@@ -73,26 +73,28 @@ async function showAmountForSize(productId) {
 }
 
 async function addToCart(productId) {
-    const url = `/api/get_product_info.php?product=${productId}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
+    if (sizeSelected) {
+        const url = `/api/get_product_info.php?product=${productId}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
 
-        const result = await response.json();
-        console.log(result);
-        // CREATE PRODUCT CLASS
-        const product = new Product(
-            result['productId'],
-            result['productName'],
-            result['description'],
-            getSize(),
-            Number(amountSelect.value),
-            result['price'],
-        );
-        cart.add(product);
-    } catch (error) {
-        console.error(error.message);
+            const result = await response.json();
+            console.log(result);
+            // CREATE PRODUCT CLASS
+            const product = new Product(
+                result['productId'],
+                result['productName'],
+                result['description'],
+                getSize(),
+                Number(amountSelect.value),
+                result['price'],
+            );
+            cart.add(product);
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 }
