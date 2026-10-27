@@ -12,7 +12,9 @@
 
 <body data-bs-theme="dark">
     <?php include('../src/templates/header.php') ?>
+
     <div class="container">
+        <div class="warnings"></div>
         <h1>Winkelwagen</h1>
         <table class="table">
             <thead>

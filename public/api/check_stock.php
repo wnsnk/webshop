@@ -53,9 +53,6 @@ foreach ($cart as $item) {
     }
 }
 
-error_log(json_encode($cart));
-error_log(json_encode($updatedCart));
-
 if (!$cartEdited) {
     echo json_encode(['succes' => true]);
 } else {

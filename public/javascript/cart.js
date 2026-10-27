@@ -2,8 +2,11 @@
 
 import ShoppingCart from './modules/shopping_cart.js';
 import { createElementWithClass } from './modules/elements.js';
+import FormValidator from './modules/validate_form.js';
 const cart = new ShoppingCart();
+const formValidator = new FormValidator();
 
+const warningsDiv = document.querySelector('.warnings');
 const itemsDiv = document.querySelector('#items');
 const checkoutBtn = document.querySelector('#checkout');
 
@@ -16,11 +19,16 @@ checkoutBtn.addEventListener('click', function () {
 });
 
 async function showShoppingCart() {
+    warningsDiv.innerHTML = '';
     const before = cart.items['shoppingCart'];
     await cart.compareCartStock();
     const after = cart.items['shoppingCart'];
     if (before != after) {
-        console.log('SOMETHING HAS CHANGED'); //TODO CREATE WARNING ELEMENT
+        warningsDiv.appendChild(
+            formValidator.createWarningElement(
+                'Winkelwagen is bijgewerkt omdat niet alles op voorraad is',
+            ),
+        );
     }
     totalAmount = 0;
     totalPrice = 0;
