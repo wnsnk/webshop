@@ -7,19 +7,18 @@ const cart = new ShoppingCart();
 const formValidator = new FormValidator();
 
 const warningsDiv = document.querySelector('.warnings');
-const itemsDiv = document.querySelector('#items');
-const checkoutBtn = document.querySelector('#checkout');
+// const itemsDiv = document.querySelector('#items');
+// const checkoutBtn = document.querySelector('#checkout');
 
 let totalAmount, totalPrice;
 
 showShoppingCart();
 
-checkoutBtn.addEventListener('click', function () {
-    cart.tryCheckout();
-});
-
 async function showShoppingCart() {
-    warningsDiv.innerHTML = '';
+    if (warningsDiv) {
+        warningsDiv.innerHTML = '';
+    }
+
     const before = cart.items['shoppingCart'];
     await cart.compareCartStock();
     const after = cart.items['shoppingCart'];
