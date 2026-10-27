@@ -35,8 +35,12 @@ export default class ShoppingCart {
             this.updateLocalStorage();
         }
     }
-
-    remove(product, amountToDelete) {
+    /**
+     *  Removes product from shopping cart
+     * @param {Product} product - The product that needs to be Removed.
+     * * @param Amount - The Amount of the product that needs to be Removed.
+     */
+    remove(product, amount) {
         let index = 0;
         for (let item of this.items['shoppingCart']) {
             item = JSON.parse(item);
@@ -44,8 +48,8 @@ export default class ShoppingCart {
                 item['id'] === product['id'] &&
                 item['size'] === product['size']
             ) {
-                if (amountToDelete < item['amount']) {
-                    item['amount'] = item['amount'] - amountToDelete;
+                if (amount < item['amount']) {
+                    item['amount'] = item['amount'] - amount;
                     this.items['shoppingCart'][index] = JSON.stringify(item);
                     this.updateLocalStorage();
                 } else {
@@ -57,6 +61,9 @@ export default class ShoppingCart {
             index++;
         }
     }
+    /**
+     * Compares the items in the cart against the items in the Database and updates the cart if something is not in stock.
+     */
     async compareCartStock() {
         try {
             const response = await fetch('/api/check_stock.php', {
