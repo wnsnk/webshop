@@ -14,7 +14,14 @@
     <?php include('../src/templates/header.php') ?>
 
     <div class="container">
-        <div class="warnings"></div>
+        <?php if (!$_SESSION['logged_in']) {
+            echo '<div class="alert alert-warning" role="alert">Log in om af te rekenen!</div>';
+        }
+        ?>
+        <div class="warnings">
+
+
+        </div>
         <h1>Winkelwagen</h1>
         <table class="table">
             <thead>
@@ -35,7 +42,13 @@
                 <th scope="col"></th>
                 <th scope="col" id="totalAmount"></th>
                 <th scope="col" id="totalPrice"></th>
-                <th scope="col"><button id="checkout" class="btn btn-danger">Afrekenen</button></th>
+                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+                    echo '<th scope="col"><a id="checkout" class="btn btn-danger" href="/checkout.php">Afrekenen</a></th>';
+                } else {
+                    echo '<th scope="col"><button id="checkout" class="btn btn-danger" disabled>Afrekenen</button></th>';
+                }
+                ?>
+
             </tfoot>
 
         </table>
