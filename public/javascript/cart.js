@@ -102,7 +102,7 @@ async function showShoppingCart() {
     showTotals();
 }
 
-function showTotals() {
+export function showTotals() {
     const totalDiffIdEl = document.querySelector('#totalDiffId');
     const totalAmountEl = document.querySelector('#totalAmount');
     const totalPriceEl = document.querySelector('#totalPrice');

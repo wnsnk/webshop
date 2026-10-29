@@ -1,10 +1,11 @@
 'use strict';
-// TODO MAYBE DON'T USE cart.js for the checkout.php
-let totalPrice = document.querySelector('#totalPrice').textContent;
-totalPrice = Number(totalPrice.replace('€', ''));
-const shippingCostTh = document.querySelector('#shippingCost');
-shippingCostTh.textContent = `€ ${calcShippingCost(totalPrice)}`;
 
+import ShoppingCart from './modules/shopping_cart.js';
+import { createElementWithClass } from './modules/elements.js';
+import { showTotals } from './cart.js';
+const cart = new ShoppingCart();
+
+// CUSTOMERINFO
 getUserInfo(12);
 
 async function getUserInfo(userId) {
@@ -29,6 +30,70 @@ async function getUserInfo(userId) {
     } catch (error) {
         console.error(error.message);
     }
+}
+// CART
+const warningsDiv = document.querySelector('.warnings');
+let totalAmount, totalPrice;
+
+showShoppingCart();
+
+async function showShoppingCart() {
+    if (warningsDiv) {
+        warningsDiv.innerHTML = '';
+    }
+
+    const before = cart.items['shoppingCart'];
+    await cart.compareCartStock();
+    const after = cart.items['shoppingCart'];
+    if (before != after) {
+        warningsDiv.appendChild(
+            formValidator.createWarningElement(
+                'Winkelwagen is bijgewerkt omdat niet alles op voorraad is',
+            ),
+        );
+    }
+    totalAmount = 0;
+    totalPrice = 0;
+    const tbodyElement = document.querySelector('tbody');
+    tbodyElement.innerHTML = '';
+    for (let product of cart.items['shoppingCart']) {
+        product = JSON.parse(product);
+
+        const trElement = createElementWithClass('tr', 'text-content-center');
+
+        const idElement = document.createElement('th');
+        idElement.scope = 'row';
+        idElement.textContent = product['id'];
+        trElement.appendChild(idElement);
+
+        const nameElement = document.createElement('td');
+        nameElement.scope = 'col';
+        nameElement.textContent = product['productName'];
+        trElement.appendChild(nameElement);
+
+        const sizeElement = document.createElement('td');
+        sizeElement.scope = 'col';
+        sizeElement.textContent = product['size'];
+        trElement.appendChild(sizeElement);
+
+        const amountElement = document.createElement('td');
+        amountElement.scope = 'col';
+        amountElement.textContent = product['amount'];
+        totalAmount += product['amount'];
+        trElement.appendChild(amountElement);
+
+        const priceElement = document.createElement('td');
+        priceElement.scope = 'col';
+        const totalPriceProduct = product['price'] * product['amount'];
+        priceElement.textContent = `€ ${totalPriceProduct}`;
+        totalPrice += totalPriceProduct;
+        trElement.appendChild(priceElement);
+
+        tbodyElement.appendChild(trElement);
+    }
+    showTotals();
+    const shippingCostTh = document.querySelector('#shippingCost');
+    shippingCostTh.textContent = `€ ${calcShippingCost(totalPrice)}`;
 }
 
 function calcShippingCost(total) {

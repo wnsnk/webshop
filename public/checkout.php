@@ -18,6 +18,7 @@ if (!$_SESSION['logged_in']) {
 <body data-bs-theme="dark">
     <?php include('../src/templates/header.php') ?>
     <div class="container">
+        <div class="warnings"></div>
         <h1>Controleer gegevens</h1>
         <div class="row">
             <div id="shippingInfo" class="col border rounded">
@@ -38,7 +39,6 @@ if (!$_SESSION['logged_in']) {
                             <th scope="col">Maat</th>
                             <th scope="col">Hoeveelheid</th>
                             <th scope="col">Prijs</th>
-                            <th scope="col">Verwijderen</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,8 +50,6 @@ if (!$_SESSION['logged_in']) {
                             <th scope="col"></th>
                             <th scope="col" id="totalAmount"></th>
                             <th scope="col" id="totalPrice"></th>
-                            <th scope="col"></th>
-
                         </tr>
                         <tr>
                             <th scope="col">Verzendkosten:</th>
@@ -59,13 +57,10 @@ if (!$_SESSION['logged_in']) {
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col" id="shippingCost"></th>
-                            <th scope="col"></th>
-
                         </tr>
                     </tfoot>
                 </table>
             </div>
-            <script type="module" src="javascript/cart.js"></script>
         </div>
         <br>
         <div class="row">
@@ -106,7 +101,7 @@ if (!$_SESSION['logged_in']) {
         </div>
     </div>
 
-    <script src="javascript/checkout.js"></script>
+    <script type="module" src="javascript/checkout.js"></script>
 </body>
 
 </html>
