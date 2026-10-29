@@ -4,9 +4,9 @@ import ShoppingCart from './modules/shopping_cart.js';
 import { createElementWithClass } from './modules/elements.js';
 import { showTotals } from './cart.js';
 const cart = new ShoppingCart();
-
+const userId = Number(document.querySelector('#userId').textContent);
 // CUSTOMERINFO
-getUserInfo(12);
+getUserInfo(userId);
 
 async function getUserInfo(userId) {
     try {
@@ -94,6 +94,7 @@ async function showShoppingCart() {
     showTotals();
     const shippingCostTh = document.querySelector('#shippingCost');
     shippingCostTh.textContent = `€ ${calcShippingCost(totalPrice)}`;
+    showTotalWithShipping();
 }
 
 function calcShippingCost(total) {
@@ -102,7 +103,6 @@ function calcShippingCost(total) {
 
 function showTotalWithShipping() {
     // TODO
-    // document.querySelector('#totalWithShipping').textContent =
-    //     totalPrice + calcShippingCost(totalPrice);
+    document.querySelector('#totalWithShipping').textContent =
+        totalPrice + calcShippingCost(totalPrice);
 }
-showTotalWithShipping();

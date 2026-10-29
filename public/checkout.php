@@ -17,6 +17,7 @@ if (!$_SESSION['logged_in']) {
 
 <body data-bs-theme="dark">
     <?php include('../src/templates/header.php') ?>
+
     <div class="container">
         <div class="warnings"></div>
         <h1>Controleer gegevens</h1>
@@ -25,6 +26,11 @@ if (!$_SESSION['logged_in']) {
                 <h2>Adresgegevens</h2>
                 <h3>Emailadres:</h3>
                 <p id="email">EMAIL</p>
+                <h3>Klantnummer:</h3>
+                <?php
+                $user_id = $_SESSION['user_id'];
+                echo "<p id='userId'>$user_id</p>";
+                ?>
                 <h3>Adres</h3>
                 <p id="streetNameWithNum">straat 1</p>
                 <p id="postcodeAndCity">1234AB AMSTERDAM</p>
@@ -92,14 +98,14 @@ if (!$_SESSION['logged_in']) {
         <br>
         <div class="row">
             <div class="col">
-                <h2>Totaal te betalen:</h2>
-                <h3 id="totalWithShipping"></h3>
+                <h2>Totaal te betalen: €<span id="totalWithShipping"></span></h2>
             </div>
             <div class="col d-flex justify-content-end">
                 <button class="btn btn-danger btn-lg">Afrekenen</button>
             </div>
         </div>
     </div>
+    <?php include('../src/templates/footer.html') ?>
 
     <script type="module" src="javascript/checkout.js"></script>
 </body>
