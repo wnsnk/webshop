@@ -73,19 +73,19 @@ if (!$_SESSION['logged_in']) {
             <div class="col border rounded">
                 <h2>Selecteer betaalmethode</h2>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod1" value="option1" checked>
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod1" value="Mydeal" checked>
                     <label class="form-check-label" for="paymentMethod1">
                         Mydeal
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="option2">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod2" value="PalPay">
                     <label class="form-check-label" for="paymentMethod2">
                         PalPay
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod3" value="option3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="paymentMethod3" value="Klorno">
                     <label class="form-check-label" for="paymentMethod3">
                         Klorno
                     </label>
@@ -101,7 +101,7 @@ if (!$_SESSION['logged_in']) {
                 <h2>Totaal te betalen: €<span id="totalWithShipping"></span></h2>
             </div>
             <div class="col d-flex justify-content-end">
-                <button class="btn btn-danger btn-lg">Afrekenen</button>
+                <button id="checkoutBtn" class="btn btn-danger btn-lg">Afrekenen</button>
             </div>
         </div>
     </div>

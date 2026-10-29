@@ -3,6 +3,7 @@
 import ShoppingCart from './modules/shopping_cart.js';
 import { createElementWithClass } from './modules/elements.js';
 import { showTotals } from './cart.js';
+
 const cart = new ShoppingCart();
 const userId = Number(document.querySelector('#userId').textContent);
 // CUSTOMERINFO
@@ -106,3 +107,20 @@ function showTotalWithShipping() {
     document.querySelector('#totalWithShipping').textContent =
         totalPrice + calcShippingCost(totalPrice);
 }
+
+// CHECKOUT
+
+const checkoutBtn = document.querySelector('#checkoutBtn');
+
+checkoutBtn.addEventListener('click', function () {
+    console.log('checkout');
+    const paymentMethod = document.querySelector(
+        'input[name="paymentMethod"]:checked',
+    ).value;
+    cart.checkout(
+        userId,
+        paymentMethod,
+        totalPrice,
+        calcShippingCost(totalPrice),
+    );
+});

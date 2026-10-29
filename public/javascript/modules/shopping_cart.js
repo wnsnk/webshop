@@ -9,7 +9,6 @@ export default class ShoppingCart {
             window.localStorage.setItem('cart', JSON.stringify(emptyCart));
         }
         this.items = JSON.parse(window.localStorage.getItem('cart'));
-        console.log(this.items['shoppingCart']);
     }
     /**
      * adds product to shopping cart
@@ -84,6 +83,32 @@ export default class ShoppingCart {
                 ((this.items['shoppingCart'] = result['updated_cart']),
                     this.updateLocalStorage());
             }
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    async checkout(customerId, payment_method, totalAmount, shippingCosts) {
+        try {
+            const response = await fetch('/api/checkout.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    customerId: customerId,
+                    cart: this.items['shoppingCart'],
+                    paymentMethod: payment_method,
+                    totalAmount: totalAmount,
+                    shippingCosts: shippingCosts,
+                }),
+            });
+            if (!response.ok) {
+                console.log();
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log(result);
+            // if (result['succes']) {
+            //     document.location.href = '/';
+            // }
         } catch (error) {
             console.error(error.message);
         }

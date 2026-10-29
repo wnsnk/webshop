@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 session_start();
 $connection = include('../../src/database.php');
 header('Content-Type: application/json');
@@ -15,15 +13,29 @@ if ($method === 'POST') {
         return;
     }
 
-    // echo json_encode(['succes' => true, 'reason' => ' logged in']);
+    $user_id = $input['customerId'];
 
     $cart = $input['cart'];
+    foreach ($cart as $item) {
+    }
+    $cartEncoded = json_encode($cart);
+    $totalAmount = $input['totalAmount'];
+    // TODO CHECK IF TOTAL AMOUNT IS CORRECT IN PHP?
+    $shippingCosts = $input['shippingCosts'];
+    $paymentMethod = $input['paymentMethod'];
+
+    $sql = "INSERT INTO orders(customer_id, items, total_amount, shipping_costs, payment_method) 
+    VALUES ($user_id, '$cartEncoded', $totalAmount, $shippingCosts, '$paymentMethod')";
+    error_log($sql);
+    mysqli_query($connection, $sql);
+
     foreach ($cart as $item) {
         $item = json_decode($item, true);
         $productId = $item['id'];
         $size = $item['size'];
         $amount = $item['amount'];
 
+        // UPDATE PRODUCTS TABLE
         $sql = "SELECT * FROM products WHERE id = $productId";
         $result = mysqli_query($connection, $sql);
         // CHECK IF ID EXISTS
@@ -38,15 +50,11 @@ if ($method === 'POST') {
             if (array_key_exists($size, $sizeAmount)) {
                 // CHECK IF WANTED AMOUNT <= DB AMOUNT 
                 if ($amount <= $sizeAmount[$size]) {
-                    error_log($size);
-                    error_log($sizeAmount[$size]);
                     $sizeAmount[$size] -= $amount;
-                    error_log($sizeAmount[$size]);
-                    error_log(json_encode($sizeAmount));
-                    // TODO: AT WHAT MOMENT DO I UPDATE THE DATABASE? 
-                    // IF I DO IT HERE AND ONE OF THE ITEMS IS NOT IN STOCK THE DATABASE WILL HAVE UPDATED BUT THE ORDER SHOULD FAIL
-                    // - MAYBE CREATE AN ARRAY WITH SQL QUERY'S? AND IF EVERYTHING IS IN STOCK LOOP THROUGH THE SQL QUERY ARRAY? 
-                    // - MAYBE CREATE ANOTHER API ENDPOINT TO CHECK IF EVERYTHING IS IN STOCK AND ONLY THEN GO TO THIS ENDPOINT?
+                    $newSizeAmountJSON = json_encode($sizeAmount);
+                    $sqlQuery = "UPDATE `products` SET `size_amount` = '$newSizeAmountJSON' WHERE `products`.`id` = $productId";
+                    mysqli_query($connection, $sqlQuery);
+                    error_log($sqlQuery);
                 } else {
                     echo json_encode(['succes' => false, 'reason' => "$productId at size $size has not enough in stock"]);
                     return;
@@ -57,6 +65,8 @@ if ($method === 'POST') {
             }
         }
     }
+
+    echo json_encode(['succes' => true]);
 
 
     // $sql = "INSERT INTO products(product_name, product_description, img_url, size_amount, product_price) 
