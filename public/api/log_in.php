@@ -19,7 +19,7 @@ if ($method == 'POST') {
         $row = mysqli_fetch_assoc($query);
         if (password_verify($input['password'], $row['password_'])) {
             $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['user_id'] = $row['user_id_'];
             if ($row['is_admin']) {
                 $_SESSION['is_admin'] = true;
             }
