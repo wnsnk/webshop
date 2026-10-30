@@ -16,11 +16,10 @@ if ($method === 'POST') {
     $user_id = $input['customerId'];
 
     $cart = $input['cart'];
-    foreach ($cart as $item) {
-    }
     $cartEncoded = json_encode($cart);
     $totalAmount = $input['totalAmount'];
     // TODO CHECK IF TOTAL AMOUNT IS CORRECT IN PHP?
+    $calcTotal = 0;
     $shippingCosts = $input['shippingCosts'];
     $paymentMethod = $input['paymentMethod'];
 
@@ -28,6 +27,7 @@ if ($method === 'POST') {
     VALUES ($user_id, '$cartEncoded', $totalAmount, $shippingCosts, '$paymentMethod')";
     error_log($sql);
     mysqli_query($connection, $sql);
+    $orderId = mysqli_insert_id($connection);
 
     foreach ($cart as $item) {
         $item = json_decode($item, true);
@@ -45,7 +45,10 @@ if ($method === 'POST') {
                 $products[] = $row;
             }
             $product = $products[0];
+            // UPDATE CALCTOTAL
+            $calcTotal += ($product['product_price'] * $amount);
             $sizeAmount = json_decode($product['size_amount'], true);
+
             // CHECK IF SIZE EXISTS FOR ITEM
             if (array_key_exists($size, $sizeAmount)) {
                 // CHECK IF WANTED AMOUNT <= DB AMOUNT 
@@ -56,28 +59,29 @@ if ($method === 'POST') {
                     mysqli_query($connection, $sqlQuery);
                     error_log($sqlQuery);
                 } else {
+                    $sql = "UPDATE `orders` SET `status` = 'ERROR $productId at size $size has not enough in stock' WHERE `orders`.`order_id` = $orderId";
+                    mysqli_query($connection, $sql);
                     echo json_encode(['succes' => false, 'reason' => "$productId at size $size has not enough in stock"]);
                     return;
                 }
             } else {
+                $sql = "UPDATE `orders` SET `status` = 'ERROR $productId size $size does not exist' WHERE `orders`.`order_id` = $orderId";
+                mysqli_query($connection, $sql);
                 echo json_encode(['succes' => false, 'reason' => 'Size does not exist']);
                 return;
             }
         }
     }
 
-    echo json_encode(['succes' => true]);
-
-
-    // $sql = "INSERT INTO products(product_name, product_description, img_url, size_amount, product_price) 
-    //         VALUES ('$name', '$description', '$imgUrl', '$sizeAmount', $price)";
-    // 
-    // if ($query) {
-    //     echo json_encode(['succes' => true]);
-    // } else {
-    //     echo json_encode(['succes' => false]);
-    //     // response status 500?
-    // }
+    if ((float)$totalAmount === (float)$calcTotal) {
+        $sql = "UPDATE `orders` SET `status` = 'SUCCES' WHERE `orders`.`order_id` = $orderId";
+        mysqli_query($connection, $sql);
+        echo json_encode(['succes' => true]);
+    } else {
+        $sql = "UPDATE `orders` SET `status` = 'ERROR TOTAL AMOUNT DOES NOT MATCH DB' WHERE `orders`.`order_id` = $orderId";
+        mysqli_query($connection, $sql);
+        echo json_encode(['succes' => false, 'reason' => 'Total amount does not match database prices.']);
+    }
 
     mysqli_close($connection);
 }
