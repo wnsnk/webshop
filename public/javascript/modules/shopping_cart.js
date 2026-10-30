@@ -5,8 +5,7 @@ import Product from './product.js';
 export default class ShoppingCart {
     constructor() {
         if (!window.localStorage.getItem('cart')) {
-            const emptyCart = { shoppingCart: [] };
-            window.localStorage.setItem('cart', JSON.stringify(emptyCart));
+            this.clear();
         }
         this.items = JSON.parse(window.localStorage.getItem('cart'));
     }
@@ -61,6 +60,13 @@ export default class ShoppingCart {
         }
     }
     /**
+     *  Empty the shopping cart
+     */
+    clear() {
+        const emptyCart = { shoppingCart: [] };
+        window.localStorage.setItem('cart', JSON.stringify(emptyCart));
+    }
+    /**
      * Compares the items in the cart against the items in the Database and updates the cart if something is not in stock.
      */
     async compareCartStock() {
@@ -106,11 +112,14 @@ export default class ShoppingCart {
             }
             const result = await response.json();
             console.log(result);
-            // if (result['succes']) {
-            //     document.location.href = '/';
-            // }
+            if (result['succes']) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (error) {
             console.error(error.message);
+            return false;
         }
     }
 

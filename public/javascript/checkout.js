@@ -112,15 +112,22 @@ function showTotalWithShipping() {
 
 const checkoutBtn = document.querySelector('#checkoutBtn');
 
-checkoutBtn.addEventListener('click', function () {
+checkoutBtn.addEventListener('click', async function () {
     console.log('checkout');
     const paymentMethod = document.querySelector(
         'input[name="paymentMethod"]:checked',
     ).value;
-    cart.checkout(
+    const checkoutSuccesful = await cart.checkout(
         userId,
         paymentMethod,
         totalPrice,
         calcShippingCost(totalPrice),
     );
+    if (checkoutSuccesful) {
+        cart.clear();
+        alert('Order succesfully placed');
+        window.location.href = '/';
+    } else {
+        alert('Something went wrong. Please contact us.');
+    }
 });
