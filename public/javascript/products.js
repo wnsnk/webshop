@@ -30,6 +30,37 @@ async function getProducts() {
             });
         }
 
+        const minPriceInput = document.querySelector('#minPrice');
+        const maxPriceInput = document.querySelector('#maxPrice');
+        minPriceInput.addEventListener('input', function (event) {
+            // TODO: THIS WORKS BUT IT DOESN'T WORK GOOD IF MIN IS TOO HIGH IT SHOWS EVERYTHING?
+            productsDiv.innerHTML = '';
+            columns = calcColumns();
+            showProducts(
+                filters.priceRange(
+                    results,
+                    minPriceInput.value,
+                    maxPriceInput.value,
+                ),
+                columns,
+                'sortPriceLowHigh',
+            );
+        });
+
+        maxPriceInput.addEventListener('input', function () {
+            productsDiv.innerHTML = '';
+            columns = calcColumns();
+            showProducts(
+                filters.priceRange(
+                    results,
+                    Number(minPriceInput.value),
+                    Number(maxPriceInput.value),
+                ),
+                columns,
+                'sortPriceLowHigh',
+            );
+        });
+
         window.addEventListener('resize', function () {
             productsDiv.innerHTML = '';
             columns = calcColumns();

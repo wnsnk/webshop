@@ -1,10 +1,30 @@
 export default class Filters {
     constructor() {}
+    /**
+     * Returns array of products within selected price range
+     * @param {Array} products - Array of products.
+     * @param {Number} minPrice - The minimum price of the product.
+     * @param {Number} maxPrice - The maximum price of the product.
+     * @returns {Array} products
+     */
+    priceRange(products, minPrice, MaxPrice) {
+        const filteredProducts = [];
+        for (let product of products) {
+            if (
+                product['product_price'] < minPrice ||
+                product['product_price'] > MaxPrice
+            ) {
+                continue;
+            }
+            filteredProducts.push(product);
+        }
+        return filteredProducts;
+    }
 
     /**
      * Sorts an array of products
      * @param {Array} products - Array of products.
-     * * @param {string} sortMethod - The method of sorting.
+     * @param {string} sortMethod - The method of sorting.
      * @returns {Array} A sorted products array
      */
     sortProducts(products, sortMethod) {
