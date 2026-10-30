@@ -66,7 +66,7 @@ function showProducts(results, columns) {
         h4El.textContent = result['product_name'];
         cardBodyEl.appendChild(h4El);
         const paragraphEl = createElementWithClass('p', 'card-text');
-        paragraphEl.textContent = result['product_description'];
+        paragraphEl.textContent = `€${result['product_price'].replace('.', ',')}`;
         cardBodyEl.appendChild(paragraphEl);
         const aBtnEl = createElementWithClass('a', 'btn btn-primary');
         aBtnEl.textContent = 'Bekijk product';
