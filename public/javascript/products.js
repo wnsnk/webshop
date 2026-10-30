@@ -33,7 +33,6 @@ async function getProducts() {
         const minPriceInput = document.querySelector('#minPrice');
         const maxPriceInput = document.querySelector('#maxPrice');
         minPriceInput.addEventListener('input', function (event) {
-            // TODO: THIS WORKS BUT IT DOESN'T WORK GOOD IF MIN IS TOO HIGH IT SHOWS EVERYTHING?
             productsDiv.innerHTML = '';
             columns = calcColumns();
             showProducts(

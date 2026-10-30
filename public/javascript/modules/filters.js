@@ -11,8 +11,8 @@ export default class Filters {
         const filteredProducts = [];
         for (let product of products) {
             if (
-                product['product_price'] < minPrice ||
-                product['product_price'] > MaxPrice
+                Number(product['product_price']) < minPrice ||
+                Number(product['product_price']) > MaxPrice
             ) {
                 continue;
             }
