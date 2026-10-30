@@ -17,13 +17,22 @@ async function getProducts() {
         const results = await response.json();
         console.log(results);
         columns = calcColumns();
-        showProducts(results, columns);
+        showProducts(results, columns, 'sortNewOld');
+
+        const sortDropDownBtns = document.querySelectorAll('.sortDropDown');
+        for (let sortDropdownElement of sortDropDownBtns) {
+            sortDropdownElement.addEventListener('click', function () {
+                productsDiv.innerHTML = '';
+                columns = calcColumns();
+                showProducts(results, columns, sortDropdownElement.id);
+            });
+        }
 
         window.addEventListener('resize', function () {
             productsDiv.innerHTML = '';
             columns = calcColumns();
             console.log(columns);
-            showProducts(results, columns);
+            showProducts(results, columns, 'sortNewOld');
         });
     } catch (error) {
         console.error(error.message);
@@ -44,8 +53,9 @@ function calcColumns() {
     }
 }
 
-function showProducts(results, columns) {
+function showProducts(results, columns, sortBy) {
     let columnsCount = 0;
+    results = sortProducts(results, sortBy);
 
     for (const result of results) {
         if (columnsCount === 0) {
@@ -78,4 +88,49 @@ function showProducts(results, columns) {
             columnsCount = 0;
         }
     }
+}
+
+/**
+ * Sorts an array of products
+ * @param {Array} products - Array of products.
+ * * @param {string} sortMethod - The method of sorting.
+ * @returns {Array} A sorted products array
+ */
+function sortProducts(products, sortMethod) {
+    switch (sortMethod) {
+        case 'sortOldNew':
+            products.sort(function (a, b) {
+                return a.id - b.id;
+            });
+            break;
+        case 'sortNewOld':
+            products.sort(function (a, b) {
+                return a.id - b.id;
+            });
+            products.reverse();
+            break;
+        case 'sortPriceLowHigh':
+            products.sort(function (a, b) {
+                return a.product_price - b.product_price;
+            });
+            break;
+        case 'sortPriceHighLow':
+            products.sort(function (a, b) {
+                return a.product_price - b.product_price;
+            });
+            products.reverse();
+            break;
+        case 'sortNameAZ':
+            products.sort((a, b) =>
+                a.product_name.localeCompare(b.product_name),
+            );
+            break;
+        case 'sortNameZA':
+            products.sort((a, b) =>
+                a.product_name.localeCompare(b.product_name),
+            );
+            products.reverse();
+            break;
+    }
+    return products;
 }
