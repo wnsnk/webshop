@@ -1,5 +1,7 @@
 'use strict';
 import { createElementWithClass } from './modules/elements.js';
+import Filters from './modules/filters.js';
+const filters = new Filters();
 // const { cloneElement } = require('react');
 
 let columns, rowElement;
@@ -55,7 +57,7 @@ function calcColumns() {
 
 function showProducts(results, columns, sortBy) {
     let columnsCount = 0;
-    results = sortProducts(results, sortBy);
+    results = filters.sortProducts(results, sortBy);
 
     for (const result of results) {
         if (columnsCount === 0) {
@@ -88,49 +90,4 @@ function showProducts(results, columns, sortBy) {
             columnsCount = 0;
         }
     }
-}
-
-/**
- * Sorts an array of products
- * @param {Array} products - Array of products.
- * * @param {string} sortMethod - The method of sorting.
- * @returns {Array} A sorted products array
- */
-function sortProducts(products, sortMethod) {
-    switch (sortMethod) {
-        case 'sortOldNew':
-            products.sort(function (a, b) {
-                return a.id - b.id;
-            });
-            break;
-        case 'sortNewOld':
-            products.sort(function (a, b) {
-                return a.id - b.id;
-            });
-            products.reverse();
-            break;
-        case 'sortPriceLowHigh':
-            products.sort(function (a, b) {
-                return a.product_price - b.product_price;
-            });
-            break;
-        case 'sortPriceHighLow':
-            products.sort(function (a, b) {
-                return a.product_price - b.product_price;
-            });
-            products.reverse();
-            break;
-        case 'sortNameAZ':
-            products.sort((a, b) =>
-                a.product_name.localeCompare(b.product_name),
-            );
-            break;
-        case 'sortNameZA':
-            products.sort((a, b) =>
-                a.product_name.localeCompare(b.product_name),
-            );
-            products.reverse();
-            break;
-    }
-    return products;
 }
